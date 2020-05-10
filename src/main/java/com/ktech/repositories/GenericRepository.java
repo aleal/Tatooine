@@ -103,9 +103,20 @@ public abstract class GenericRepository<E> {
 		return this.getDatastore().createUpdateOperations(entityClass);
 	}
 	
-	
+	/**
+	 * Create all entities from collection
+	 * @param entities
+	 * @return
+	 */
 	public Collection<E> createAll(Collection<E> entities) {
 		this.getDatastore().save(entities);
 		return entities;
+	}
+	
+	/**
+	 * Deletes all entities
+	 */
+	public void deleteAll() {
+		this.getDatastore().delete(this.getDatastore().createQuery(entityClass));
 	}
 }

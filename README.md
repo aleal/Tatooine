@@ -1,5 +1,5 @@
 # Tatooine
-Simple app JAX-RS with jersey + grizzly2 + Morphia + mongo
+Simple app JAX-RS with jersey + grizzly2 + Morphia/MongoDB
 
 
 ### Running Tests
@@ -13,13 +13,13 @@ Simple app JAX-RS with jersey + grizzly2 + Morphia + mongo
 > mvn clean test exec:java
 ```
 
-Server must be up at localhost:8080 
+Server must be up at localhost:8080 and MongoDB must be at localhost:27017
  
 
 ### Routes
 | Path          | Method | Description                               | Body JSON fields                                                                  |
 | ---------- | :----: | --------------------------------------- | :-------------------------------------------------------------------------------: |
-| /planets/seed |  Get  | Executes a seed with 6 planets from SWAPI | N/A |
+| /planets/seed |  Get  | Executes a seed with 6 planets from SWAPI. Warning: data is cleaned up | N/A |
 | /planets     |  Get  | Gets all planets | N/A |
 | /planets/{id} |  Get  | Gets a planet by its ID | N/A |
 | /planets/name/{name} |  Get  | Gets a planet by its name | N/A |

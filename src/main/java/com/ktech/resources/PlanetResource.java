@@ -43,22 +43,21 @@ public class PlanetResource extends GenericResource<Planet, PlanetRepository> {
 		}
 		return Response.ok(planet).build();
 	}
-	
-	
+
 	@GET
 	@Path("seed")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response applySeed() {
-		List<Planet> planets = Arrays.asList(
-		 new Planet("Tatooine", "arid", "desert", 5),
-		 new Planet("Alderaan", "temperate", "grasslands, mountains", 2),
-		 new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests", 1),
-		 new Planet("Hoth", "frozen", "tundra, ice caves, mountain ranges", 1),
-		 new Planet("Dagobah", "murky", "swamp, jungles", 3),
-		 new Planet("Naboo", "temperate", "grassy hills, swamps, forests, mountains", 4)
-		);
-		System.out.println(planets);
-		return  Response.ok(this.repository.createAll(planets)).build();
-	
+		this.repository.deleteAll();
+
+		List<Planet> planets = Arrays.asList(new Planet("Tatooine", "arid", "desert", 5),
+				new Planet("Alderaan", "temperate", "grasslands, mountains", 2),
+				new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests", 1),
+				new Planet("Hoth", "frozen", "tundra, ice caves, mountain ranges", 1),
+				new Planet("Dagobah", "murky", "swamp, jungles", 3),
+				new Planet("Naboo", "temperate", "grassy hills, swamps, forests, mountains", 4));
+
+		return Response.ok(this.repository.createAll(planets)).build();
+
 	}
 }
