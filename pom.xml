@@ -36,6 +36,10 @@
 			<artifactId>jersey-media-json-binding</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-bean-validation</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>dev.morphia.morphia</groupId>
 			<artifactId>core</artifactId>
 			<version>1.5.3</version>
@@ -50,6 +54,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>3.3.3</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -103,8 +103,7 @@ public class Logging {
 
 			@Override
 			public void onErrorEvent(Connection connection, HttpPacket httpPacket, Throwable error) {
-				// TODO Auto-generated method stub
-
+				error.printStackTrace();
 			}
 		});
 	}

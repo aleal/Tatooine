@@ -7,6 +7,10 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import com.ktech.di.AppInjectionBinder;
+import com.ktech.exceptions.BasicExceptionMapper;
+import com.ktech.exceptions.ConstraintViolationExceptionMapper;
+
 /**
  * Main class.
  *
@@ -24,7 +28,8 @@ public class Main {
 	public static HttpServer startServer() {
 		// create a resource config that scans for JAX-RS resources and providers
 		// in com.ktech package
-		final ResourceConfig rc = new ResourceConfig().packages("com.ktech");
+		final ResourceConfig rc = new ResourceConfig().packages("com.ktech").register(AppInjectionBinder.class)
+				.register(ConstraintViolationExceptionMapper.class).register(BasicExceptionMapper.class);
 
 		// create and start a new instance of grizzly http server
 		// exposing the Jersey application at BASE_URI
@@ -44,7 +49,7 @@ public class Main {
 		try {
 			System.in.read();
 		} catch (IOException e) {
-			e.printStackTrace(); 
+			e.printStackTrace();
 		} finally {
 			MongoConnection.close();
 			server.shutdownNow();

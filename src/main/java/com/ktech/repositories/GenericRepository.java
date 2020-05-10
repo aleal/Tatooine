@@ -1,5 +1,6 @@
 package com.ktech.repositories;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,40 +30,40 @@ public abstract class GenericRepository<E> {
 	}
 	
 	/**
-	 * Builds getByField Query<Entity>  
+	 * Builds a findByField Query<Entity>  
 	 * @param field
 	 * @param value
 	 * @return
 	 */
-	protected Query<E> buildGetByFieldQuery(String field, Object value) {
+	protected Query<E> buildFindByFieldQuery(String field, Object value) {
 		return this.getDatastore().createQuery(entityClass).field(field).equal(value);
 	}
 
 	/**
-	 * Gets all entities
+	 * Finds all entities
 	 * @return
 	 */
-	public List<E> getAll() {
+	public List<E> findAll() {
 		return this.getDatastore().createQuery(entityClass).find().toList();
 	}
 	
     /**
-     * Gets entity by its id
+     * Finds an entity by its id
      * @param id
      * @return
      */
-	public E getById(String id) {
-		return this.buildGetByFieldQuery("_id", new ObjectId(id)).first();
+	public E findById(String id) {
+		return this.buildFindByFieldQuery("_id", new ObjectId(id)).first();
 	}
 
 	/** 
-	 * Gets an entity by field
+	 * Finds an entity by field
 	 * @param field
 	 * @param value
 	 * @return
 	 */
-	public E getOneByField(String field, Object value) {
-		return this.buildGetByFieldQuery(field, value).first();
+	public E findOneByField(String field, Object value) {
+		return this.buildFindByFieldQuery(field, value).first();
 	}
 
 	/**
@@ -82,7 +83,7 @@ public abstract class GenericRepository<E> {
 	 * @return
 	 */
 	public E update(String id, UpdateOperations<E> operations) {
-		return this.getDatastore().findAndModify(this.buildGetByFieldQuery("_id", new ObjectId(id)), operations);
+		return this.getDatastore().findAndModify(this.buildFindByFieldQuery("_id", new ObjectId(id)), operations);
 	}
 
 	/**
@@ -91,7 +92,7 @@ public abstract class GenericRepository<E> {
 	 * @return
 	 */
 	public E delete(String id) {
-		return this.getDatastore().findAndDelete(this.buildGetByFieldQuery("_id", new ObjectId(id)));
+		return this.getDatastore().findAndDelete(this.buildFindByFieldQuery("_id", new ObjectId(id)));
 	}
 
 	/**
@@ -100,5 +101,11 @@ public abstract class GenericRepository<E> {
 	 */
 	public UpdateOperations<E> createUpdateOperations() {
 		return this.getDatastore().createUpdateOperations(entityClass);
+	}
+	
+	
+	public Collection<E> createAll(Collection<E> entities) {
+		this.getDatastore().save(entities);
+		return entities;
 	}
 }

@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotBlank;
 
+import com.ktech.repositories.PlanetRepository;
+import com.ktech.validators.UniqueValue;
+
 import dev.morphia.annotations.Entity;
 import dev.morphia.annotations.Field;
 import dev.morphia.annotations.Id;
@@ -34,6 +37,7 @@ public class Planet implements Serializable {
 	@Id
 	private String id;
 	@NotBlank(message = "Name is required")
+	@UniqueValue(message = "There is a planet with the informed name", repository = PlanetRepository.class, field = "name")
 	private String name;
 	@NotBlank(message = "Climate is required")
 	private String climate;
@@ -42,10 +46,11 @@ public class Planet implements Serializable {
 	private Integer filmAppearances;
 
 	public Planet(String name, String climate, String terrain) {
-		super();
-		this.name = name;
-		this.climate = climate;
-		this.terrain = terrain;
+		this(null, name, climate, terrain, 0);
+	}
+	
+	public Planet(String name, String climate, String terrain, Integer filmAppearances) {
+		this(null, name, climate, terrain, filmAppearances);
 	}
 
 }

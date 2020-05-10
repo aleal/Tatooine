@@ -9,12 +9,12 @@ public class PlanetRepository extends GenericRepository<Planet> {
 	}
 
 	/**
-	 * Gets one planet by name
+	 * Finds one planet by name
 	 * 
 	 * @param name
 	 * @return
 	 */
-	public Planet getOneByName(String name) {
-		return this.getOneByField("name", name);
+	public Planet findOneByName(String name) {
+		return this.findOneByField("name", name);
 	}
 }
